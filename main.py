@@ -51,6 +51,7 @@ def main():
 
         # Player object
         player.draw(screen)
+        player.update(dt)
 
         # Flip the display
         pygame.display.flip()
