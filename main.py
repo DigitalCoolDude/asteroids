@@ -23,10 +23,16 @@ def main():
 
     # Set up the drawing window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+ 
+    drawable = pygame.sprite.Group()
+    updatable = pygame.sprite.Group()
 
+    Player.containers = (updatable, drawable)
+    
     # Initalize player object
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+    
     player = Player(x, y, PLAYER_RADIUS)
 
     # Run until the user asks to quit
@@ -36,8 +42,6 @@ def main():
         # Change in time
         dt = game_clock.tick(60)/1000
 
-
-
         # Did the user click the window close button?
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -45,13 +49,11 @@ def main():
 
         # Fill the background with white
         screen.fill((0,0,0))
-
-        # Draw a solid blue circle in the center
-        # pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
-
-        # Player object
-        player.draw(screen)
-        player.update(dt)
+        
+        updatable.update(dt)
+        
+        for sprite in drawable:
+            sprite.draw(screen)        
 
         # Flip the display
         pygame.display.flip()
