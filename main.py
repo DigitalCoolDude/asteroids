@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 
 from constants import *
 from circleshape import CircleShape
@@ -59,8 +60,13 @@ def main():
         updatable.update(dt)
         
         for sprite in drawable:
-            sprite.draw(screen)        
+            sprite.draw(screen)     
 
+        for sprite in asteriods:
+            if sprite.collide(player):   
+                print("Game over!")
+                sys.exit()
+                
         # Flip the display
         pygame.display.flip()
 
